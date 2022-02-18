@@ -5,7 +5,7 @@ import { alpha, useTheme } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import { NavItem } from "./components";
-import Logo from "svg/illustrations/Logo";
+import Logo from "svg/Logo";
 
 interface Props {
 	// eslint-disable-next-line @typescript-eslint/ban-types
