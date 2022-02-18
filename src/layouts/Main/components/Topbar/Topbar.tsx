@@ -1,6 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import { alpha, useTheme } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 
@@ -10,14 +11,7 @@ import Logo from "svg/Logo";
 interface Props {
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	onSidebarOpen: () => void;
-	pages: {
-		landings: Array<PageItem>;
-		company: Array<PageItem>;
-		account: Array<PageItem>;
-		secondary: Array<PageItem>;
-		blog: Array<PageItem>;
-		portfolio: Array<PageItem>;
-	};
+	pages: Array<PageItem>;
 	colorInvert?: boolean;
 }
 
@@ -28,14 +22,8 @@ const Topbar = ({
 }: Props): JSX.Element => {
 	const theme = useTheme();
 	const { mode } = theme.palette;
-	const {
-		landings: landingPages,
-		secondary: secondaryPages,
-		company: companyPages,
-		account: accountPages,
-		portfolio: portfolioPages,
-		blog: blogPages,
-	} = pages;
+
+	const linkColor = colorInvert ? "common.white" : "text.primary";
 
 	return (
 		<Box
@@ -51,79 +39,32 @@ const Topbar = ({
 				title="Pokepedia"
 				width={{ xs: 100, md: 120 }}
 			>
-				{/* <Box
-          component={'img'}
-          src={
-            mode === 'light' && !colorInvert
-              ? 'https://assets.maccarianagency.com/the-front/logos/logo.svg'
-              : 'https://assets.maccarianagency.com/the-front/logos/logo-negative.svg'
-          }
-          height={1}
-          width={1}
-        /> */}
 				<Logo width={"100%"} height={"100%"} />
 			</Box>
 			<Box sx={{ display: { xs: "none", md: "flex" } }} alignItems={"center"}>
-				<Box>
-					<NavItem
-						title={"Landings"}
-						id={"landing-pages"}
-						items={landingPages}
-						colorInvert={colorInvert}
-					/>
-				</Box>
-				<Box marginLeft={4}>
-					<NavItem
-						title={"Company"}
-						id={"company-pages"}
-						items={companyPages}
-						colorInvert={colorInvert}
-					/>
-				</Box>
-				<Box marginLeft={4}>
-					<NavItem
-						title={"Account"}
-						id={"account-pages"}
-						items={accountPages}
-						colorInvert={colorInvert}
-					/>
-				</Box>
-				<Box marginLeft={4}>
-					<NavItem
-						title={"Pages"}
-						id={"secondary-pages"}
-						items={secondaryPages}
-						colorInvert={colorInvert}
-					/>
-				</Box>
-				<Box marginLeft={4}>
-					<NavItem
-						title={"Blog"}
-						id={"blog-pages"}
-						items={blogPages}
-						colorInvert={colorInvert}
-					/>
-				</Box>
-				<Box marginLeft={4}>
-					<NavItem
-						title={"Portfolio"}
-						id={"portfolio-pages"}
-						items={portfolioPages}
-						colorInvert={colorInvert}
-					/>
-				</Box>
-				<Box marginLeft={4}>
-					<Button
-						variant="contained"
-						color="primary"
-						component="a"
-						target="blank"
-						href="https://mui.com/store/items/the-front-landing-page/"
-						size="large"
+				{pages.map((item, i) => (
+					<Box
+						display={"flex"}
+						alignItems={"center"}
+						// aria-describedby={id}
+						sx={{ cursor: "pointer" }}
+						marginLeft={4}
+						// onClick={(e) => handleClick(e, id)}
 					>
-						Buy now
-					</Button>
-				</Box>
+						<Button
+							component={"a"}
+							href={item.href}
+							fullWidth
+							sx={{
+								justifyContent: "flex-start",
+								color: linkColor,
+								fontWeight: 600,
+							}}
+						>
+							{item.title}
+						</Button>
+					</Box>
+				))}
 			</Box>
 			<Box sx={{ display: { xs: "flex", md: "none" } }} alignItems={"center"}>
 				<Button

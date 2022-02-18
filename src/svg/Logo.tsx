@@ -1,7 +1,7 @@
 import React from "react";
 import { useTheme } from "@mui/material/styles";
 
-const Logo = ({ width = 146, height = 38 }: IllustrationProps): JSX.Element => {
+const Logo = ({ width = 146, height = 38 }: SvgProps): JSX.Element => {
 	const theme = useTheme();
 	const colorPrimaryMain = theme.palette.primary.main;
 	const colorPrimaryDark = theme.palette.primary.dark;
