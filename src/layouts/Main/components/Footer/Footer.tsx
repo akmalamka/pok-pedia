@@ -37,8 +37,13 @@ const Footer = (): JSX.Element => {
 							<Logo width={"100%"} height={"100%"} />
 						</Box>
 					</Box>
-					<Box display="flex" flexWrap={"wrap"} alignItems={"center"}>
-						<Box marginTop={1} marginRight={2}>
+					<Box
+						display="flex"
+						flexWrap={"wrap"}
+						alignItems={"center"}
+						flexDirection={{ xs: "column", sm: "row" }}
+					>
+						<Box marginTop={1} marginRight={{ xs: 0, sm: 2 }}>
 							<Link
 								underline="none"
 								component="a"
@@ -49,7 +54,7 @@ const Footer = (): JSX.Element => {
 								Pokemon List
 							</Link>
 						</Box>
-						<Box marginTop={1} marginRight={2}>
+						<Box marginTop={1} marginRight={{ xs: 0, sm: 2 }}>
 							<Link
 								underline="none"
 								component="a"

@@ -9,6 +9,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "react-image-lightbox/style.css";
 import "aos/dist/aos.css";
+// import "fonts/stylesheet.css";
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function App({ Component, pageProps }): JSX.Element {
