@@ -4,8 +4,6 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { alpha, useTheme } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
-
-import { NavItem } from "./components";
 import Logo from "svg/Logo";
 
 interface Props {
@@ -46,10 +44,8 @@ const Topbar = ({
 					<Box
 						display={"flex"}
 						alignItems={"center"}
-						// aria-describedby={id}
 						sx={{ cursor: "pointer" }}
 						marginLeft={4}
-						// onClick={(e) => handleClick(e, id)}
 					>
 						<Button
 							component={"a"}
@@ -57,11 +53,11 @@ const Topbar = ({
 							fullWidth
 							sx={{
 								justifyContent: "flex-start",
-								color: linkColor,
-								fontWeight: 600,
 							}}
 						>
-							{item.title}
+							<Typography fontWeight={600} color={linkColor}>
+								{item.title}
+							</Typography>
 						</Button>
 					</Box>
 				))}
