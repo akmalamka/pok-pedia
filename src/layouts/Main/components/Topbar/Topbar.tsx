@@ -21,7 +21,7 @@ const Topbar = ({
 	const theme = useTheme();
 	const { mode } = theme.palette;
 
-	const linkColor = colorInvert ? "common.white" : "text.primary";
+	const linkColor = "text.primary";
 
 	return (
 		<Box
