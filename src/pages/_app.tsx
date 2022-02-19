@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import Head from "next/head";
-
 import Page from "../components/Page";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "slick-carousel/slick/slick.css";

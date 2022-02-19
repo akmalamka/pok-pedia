@@ -1,10 +1,10 @@
 const pages = [
 	{
-		title: "Pokemon List",
+		title: "Pokèmon List",
 		href: "/",
 	},
 	{
-		title: "My Pokemon List",
+		title: "My Pokèmon List",
 		href: "/my-pokemon",
 	},
 ];

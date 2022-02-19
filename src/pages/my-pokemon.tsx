@@ -1,8 +1,8 @@
 import React from "react";
-import { MyPokemonList } from "views";
+import { PokemonList } from "views";
 
 const IndexPage = (): JSX.Element => {
-	return <MyPokemonList />;
+	return <PokemonList />;
 };
 
 export default IndexPage;

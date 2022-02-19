@@ -51,7 +51,7 @@ const Footer = (): JSX.Element => {
 								color="text.primary"
 								variant={"subtitle2"}
 							>
-								Pokemon List
+								Pokèmon List
 							</Link>
 						</Box>
 						<Box marginTop={1} marginRight={{ xs: 0, sm: 2 }}>
@@ -62,7 +62,7 @@ const Footer = (): JSX.Element => {
 								color="text.primary"
 								variant={"subtitle2"}
 							>
-								My Pokemon List
+								My Pokèmon List
 							</Link>
 						</Box>
 					</Box>
@@ -75,7 +75,7 @@ const Footer = (): JSX.Element => {
 					color="text.secondary"
 					gutterBottom
 				>
-					&copy; Pokepedia. 2021, All rights reserved
+					&copy; Pokèpedia. 2022, All rights reserved
 				</Typography>
 			</Grid>
 		</Grid>

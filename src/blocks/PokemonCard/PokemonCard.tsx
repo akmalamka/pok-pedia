@@ -19,6 +19,7 @@ const PokemonCard = ({ image, title }: Props): JSX.Element => {
 	return (
 		<Box
 			component={Card}
+			px={1}
 			sx={{
 				borderRadius: 2,
 				"& .lazy-load-image-loaded": {
