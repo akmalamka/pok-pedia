@@ -7,6 +7,19 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "react-image-lightbox/style.css";
 import "aos/dist/aos.css";
+import {
+	ApolloClient,
+	InMemoryCache,
+	ApolloProvider,
+	useQuery,
+	gql,
+} from "@apollo/client";
+
+const client = new ApolloClient({
+	uri: "https://graphql-pokeapi.graphcdn.app/",
+	cache: new InMemoryCache(),
+	// connectToDevTools: process.env.NODE_ENV === "development",
+});
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function App({ Component, pageProps }): JSX.Element {
@@ -19,9 +32,11 @@ export default function App({ Component, pageProps }): JSX.Element {
 				/>
 				<title>Pokepedia</title>
 			</Head>
-			<Page>
-				<Component {...pageProps} />
-			</Page>
+			<ApolloProvider client={client}>
+				<Page>
+					<Component {...pageProps} />
+				</Page>
+			</ApolloProvider>
 		</React.Fragment>
 	);
 }
