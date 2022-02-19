@@ -8,6 +8,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Image from "next/image";
+import { PokemonCard } from "blocks";
 
 const mock = [
 	{
@@ -43,53 +44,7 @@ const Folio = (): JSX.Element => {
 			<Grid container spacing={2}>
 				{mock.map((item, i) => (
 					<Grid key={i} item xs={12} sm={4} md={3}>
-						<Box
-							component={Card}
-							sx={{
-								borderRadius: 2,
-								"& .lazy-load-image-loaded": {
-									"&:hover": {
-										"& img": {
-											transform: "scale(1.1)",
-										},
-									},
-									display: "flex !important",
-								},
-							}}
-						>
-							<Box
-								component={CardContent}
-								display={"flex"}
-								justifyContent={"flex-end"}
-								columnGap={2}
-							>
-								<Typography variant={"h6"} fontWeight={700} align={"right"}>
-									4
-								</Typography>
-								<Image src="/pokeball.svg" height={30} width={30} />
-							</Box>
-							<Box
-								component={LazyLoadImage}
-								height={1}
-								width={1}
-								src={item.image}
-								alt="..."
-								effect="blur"
-								minHeight={{ xs: 50, sm: 125, md: 200 }}
-								sx={{
-									transition: "transform .7s ease !important",
-									transform: "scale(1.0)",
-									objectFit: "cover",
-									filter:
-										theme.palette.mode === "dark" ? "brightness(0.7)" : "none",
-								}}
-							/>
-							<Box component={CardContent}>
-								<Typography variant={"h4"} fontWeight={700} gutterBottom>
-									{item.title}
-								</Typography>
-							</Box>
-						</Box>
+						<PokemonCard image={item.image} title={item.title} />
 					</Grid>
 				))}
 			</Grid>
