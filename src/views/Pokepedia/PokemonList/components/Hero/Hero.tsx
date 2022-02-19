@@ -23,7 +23,7 @@ const Hero = (): JSX.Element => {
 				position: "relative",
 			}}
 		>
-			<Box paddingY={{ xs: 0, sm: "2rem", md: "4rem" }}>
+			<Box>
 				<Container>
 					<Box maxWidth={1}>
 						<Typography
@@ -34,7 +34,7 @@ const Hero = (): JSX.Element => {
 								fontWeight: 700,
 							}}
 						>
-							Pokemon List
+							Pokèmon List
 						</Typography>
 						<Typography
 							variant="h6"
