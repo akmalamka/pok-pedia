@@ -10,7 +10,7 @@ export const light = {
 	primary: {
 		main: "#04AB0F",
 		light: "#04AB0F",
-		dark: "#2f6ad9",
+		dark: "05780C",
 		contrastText: "#fff",
 	},
 	secondary: {

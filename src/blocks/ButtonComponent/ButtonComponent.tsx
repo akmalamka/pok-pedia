@@ -5,8 +5,6 @@ import { useTheme } from "@mui/material/styles";
 
 interface Props {
 	text: string;
-	isSearchBar?: boolean;
-	isClearAll?: boolean;
 	[x: string]: any;
 }
 
@@ -15,27 +13,18 @@ const ButtonComponent = ({ text, ...rest }: Props): JSX.Element => {
 	return (
 		<Button
 			variant="contained"
-			color="secondary"
+			color="primary"
 			sx={{
-				// backgroundColor: isClearAll ? "transparent" : "none",
 				borderRadius: 30,
-				border: 2,
-				// borderColor: isSearchBar ? "primary.main" : "secondary.main",
 				my: 1,
 				"&:hover": {
-					border: 2,
+					transform: `translateY(-${theme.spacing(1 / 3)})`,
 				},
 			}}
 			{...rest}
 		>
 			<Typography
-				fontFamily={"Inter"}
 				variant="button"
-				// color={
-				// 	isClearAll
-				// 		? theme.palette.getContrastText(theme.palette.primary.light)
-				// 		: "text.secondary"
-				// }
 				sx={{
 					textTransform: "uppercase",
 					letterSpacing: 1.2,

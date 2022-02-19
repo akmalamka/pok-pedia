@@ -2,34 +2,17 @@ import React from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import Chip from "@mui/material/Chip";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 import Image from "next/image";
+import { ButtonComponent } from "blocks";
 
 interface Props {
 	image: string;
 	title: string;
 }
-
-export const mock = [
-	{
-		title: "Front-End Developer",
-		location: "Madrid",
-		type: "Remote",
-		team: "Consumer",
-		subtitle: "Responsible for design systems and brand management.",
-	},
-	{
-		title: "Community Manager",
-		location: "Paris",
-		type: "Full time",
-		team: "Consulting",
-		subtitle: "Responsible for creating life in our apps.",
-	},
-];
 
 const PokemonCard = ({ image, title }: Props): JSX.Element => {
 	const theme = useTheme();
@@ -51,13 +34,26 @@ const PokemonCard = ({ image, title }: Props): JSX.Element => {
 			<Box
 				component={CardContent}
 				display={"flex"}
-				justifyContent={"flex-end"}
-				columnGap={2}
+				justifyContent={"space-between"}
 			>
-				<Typography variant={"h6"} fontWeight={700} align={"right"}>
-					4
-				</Typography>
-				<Image src="/pokeball.svg" height={30} width={30} />
+				<Box component={"div"}>
+					<Chip
+						color={"primary"}
+						variant={"outlined"}
+						label={
+							<Typography variant={"button"} color={"text.primary"}>
+								Nike
+							</Typography>
+						}
+						sx={{ p: 1 }}
+					/>
+				</Box>
+				<Box display={"flex"} columnGap={2}>
+					<Typography variant={"h6"} fontWeight={700} align={"center"}>
+						4
+					</Typography>
+					<Image src="/pokeball.svg" height={30} width={30} />
+				</Box>
 			</Box>
 			<Box
 				component={LazyLoadImage}
@@ -78,6 +74,7 @@ const PokemonCard = ({ image, title }: Props): JSX.Element => {
 				<Typography variant={"h4"} fontWeight={700} gutterBottom>
 					{title}
 				</Typography>
+				<ButtonComponent text={"Release"} />
 			</Box>
 		</Box>
 	);
