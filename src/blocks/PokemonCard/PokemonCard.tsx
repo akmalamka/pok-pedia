@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -16,6 +17,11 @@ interface Props {
 
 const PokemonCard = ({ image, title }: Props): JSX.Element => {
 	const theme = useTheme();
+	const router = useRouter();
+
+	const onClickButton = () => {
+		router.push(`/${title.toLowerCase()}`);
+	};
 	return (
 		<Box
 			component={Card}
@@ -26,6 +32,7 @@ const PokemonCard = ({ image, title }: Props): JSX.Element => {
 					"&:hover": {
 						"& img": {
 							transform: "scale(1.1)",
+							cursor: "pointer",
 						},
 					},
 					display: "flex !important",
@@ -64,6 +71,7 @@ const PokemonCard = ({ image, title }: Props): JSX.Element => {
 				alt="..."
 				effect="blur"
 				minHeight={{ xs: 50, sm: 125, md: 200 }}
+				onClick={onClickButton}
 				sx={{
 					transition: "transform .7s ease !important",
 					transform: "scale(1.0)",
@@ -75,7 +83,7 @@ const PokemonCard = ({ image, title }: Props): JSX.Element => {
 				<Typography variant={"h4"} fontWeight={700} gutterBottom>
 					{title}
 				</Typography>
-				<ButtonComponent text={"Release"} />
+				<ButtonComponent text={"Release"} onClick={onClickButton} />
 			</Box>
 		</Box>
 	);
