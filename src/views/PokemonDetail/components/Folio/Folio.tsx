@@ -1,13 +1,15 @@
 import React from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Chip from "@mui/material/Chip";
-import Avatar from "@mui/material/Avatar";
+import LinearProgress from "@mui/material/LinearProgress";
+import { ButtonComponent } from "blocks";
 
 const mock = [
 	{
@@ -18,46 +20,45 @@ const mock = [
 		types: ["Normal", "Ground"],
 		moves: ["Cut", "Bind", "Double Edge", "Return"],
 		abilities: ["Sniper", "Bind", "Suction Cups", "Return"],
+		statistics: [
+			{ name: "HP", value: 150 },
+			{ name: "Attack", value: 50 },
+			{ name: "Defense", value: 75 },
+			{ name: "Special Attack", value: 150 },
+			{ name: "Special Defense", value: 175 },
+			{ name: "Speed", value: 200 },
+		],
 	},
 ];
 
 const Folio = (): JSX.Element => {
 	const theme = useTheme();
+	const MIN = 0;
+	const MAX = 255;
+	const normalize = (value) => ((value - MIN) * 100) / (MAX - MIN);
+	const isXs = useMediaQuery(theme.breakpoints.down("sm"), {
+		defaultMatches: true,
+	});
 	return (
 		<Box>
-			<Grid container spacing={2}>
-				{mock.map((item, i) => (
-					<Grid key={i} item xs={12} sm={4} md={3}>
-						<Box
-							component={Card}
-							px={1}
-							sx={{
-								borderRadius: 2,
-								"& .lazy-load-image-loaded": {
-									"&:hover": {
-										"& img": {
-											transform: "scale(1.1)",
-										},
-									},
-									display: "flex !important",
-								},
-							}}
-						>
+			{mock.map((item, i) => (
+				<Box
+					component={Card}
+					px={1}
+					sx={{
+						borderRadius: 2,
+						"& .lazy-load-image-loaded": {
+							display: "flex !important",
+						},
+					}}
+				>
+					<Grid container spacing={2}>
+						<Grid item xs={12} sm={3} md={4}>
 							<Box
 								component={CardContent}
 								display={"flex"}
-								justifyContent={"space-between"}
+								justifyContent={"center"}
 							>
-								<Chip
-									color={"primary"}
-									variant={"outlined"}
-									label={
-										<Typography variant={"button"} color={"text.primary"}>
-											30 cm
-										</Typography>
-									}
-									sx={{ p: 1 }}
-								/>
 								<Typography
 									variant={"h3"}
 									fontWeight={700}
@@ -66,21 +67,6 @@ const Folio = (): JSX.Element => {
 								>
 									{item.title}
 								</Typography>
-								{/* <Avatar sx={{ width: 50, height: 50 }}>
-									<Typography variant={"button"} color={"text.primary"}>
-										4 kg
-									</Typography>
-								</Avatar> */}
-								<Chip
-									color={"primary"}
-									variant={"outlined"}
-									label={
-										<Typography variant={"button"} color={"text.primary"}>
-											4 kg
-										</Typography>
-									}
-									sx={{ p: 1 }}
-								/>
 							</Box>
 							<Box
 								component={LazyLoadImage}
@@ -110,6 +96,36 @@ const Folio = (): JSX.Element => {
 									</Typography>
 								))}
 							</Box>
+							<Box display={"flex"}>
+								<Box
+									display={"flex"}
+									justifyContent={"center"}
+									width={"50%"}
+									flexDirection={"column"}
+								>
+									<Typography variant={"h5"} align={"center"} gutterBottom>
+										Height
+									</Typography>
+									<Typography variant={"h6"} align={"center"} gutterBottom>
+										30 cm
+									</Typography>
+								</Box>
+								<Box
+									display={"flex"}
+									justifyContent={"center"}
+									width={"50%"}
+									flexDirection={"column"}
+								>
+									<Typography variant={"h5"} align={"center"} gutterBottom>
+										Weight
+									</Typography>
+									<Typography variant={"h6"} align={"center"} gutterBottom>
+										4 kg
+									</Typography>
+								</Box>
+							</Box>
+						</Grid>
+						<Grid item xs={12} sm={9} md={8}>
 							<Box
 								component={CardContent}
 								display={"flex"}
@@ -168,10 +184,61 @@ const Folio = (): JSX.Element => {
 									))}
 								</Box>
 							</Box>
-						</Box>
+							<Box
+								component={CardContent}
+								display={"flex"}
+								flexDirection={"column"}
+							>
+								<Typography variant={"h4"} align={"center"} gutterBottom>
+									Statistics
+								</Typography>
+								<Box
+									display={"flex"}
+									justifyContent={"center"}
+									flexDirection={"column"}
+									rowGap={2}
+								>
+									{item.statistics.map((statistic, i) => (
+										<Box
+											display={"flex"}
+											justifyContent={"space-between"}
+											alignItems={"center"}
+										>
+											<Box width={"40%"}>
+												<Typography variant={"h6"} align={"left"}>
+													{statistic.name} : {statistic.value}
+												</Typography>
+											</Box>
+
+											<Box width={"60%"}>
+												<LinearProgress
+													variant="determinate"
+													value={normalize(statistic.value)}
+													sx={{ height: 10, borderRadius: 5 }}
+												/>
+											</Box>
+										</Box>
+									))}
+								</Box>
+							</Box>
+							<Box
+								component={CardContent}
+								display={"flex"}
+								justifyContent={"center"}
+								width={1}
+								sx={{
+									bottom: 10,
+									right: 0,
+									left: 0,
+									position: isXs ? "fixed" : "relative",
+								}}
+							>
+								<ButtonComponent text={"Catch"} />
+							</Box>
+						</Grid>
 					</Grid>
-				))}
-			</Grid>
+				</Box>
+			))}
 		</Box>
 	);
 };

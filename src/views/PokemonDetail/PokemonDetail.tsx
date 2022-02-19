@@ -7,7 +7,7 @@ import { Folio, Hero } from "./components";
 
 const PokemonList = (): JSX.Element => (
 	<Main colorInvert={true}>
-		<Hero />
+		{/* <Hero /> */}
 		<Container>
 			<Folio />
 		</Container>
