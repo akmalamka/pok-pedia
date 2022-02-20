@@ -7,10 +7,6 @@ import Grid from "@mui/material/Grid";
 import Pagination from "@mui/material/Pagination";
 import { ButtonComponent, PokemonCard } from "blocks";
 
-interface Props {
-	isMyPokemon: boolean;
-}
-
 const GET_POKEMONS = gql`
 	query pokemons($limit: Int, $offset: Int) {
 		pokemons(limit: $limit, offset: $offset) {
@@ -27,7 +23,7 @@ const GET_POKEMONS = gql`
 	}
 `;
 
-const Pokemons = ({ isMyPokemon }: Props): JSX.Element => {
+const Pokemons = (): JSX.Element => {
 	const theme = useTheme();
 	const [page, setPage] = useState(1);
 
@@ -64,11 +60,7 @@ const Pokemons = ({ isMyPokemon }: Props): JSX.Element => {
 			<Grid container spacing={2}>
 				{data.pokemons.results.map((item, i) => (
 					<Grid key={i} item xs={12} sm={4} md={3}>
-						<PokemonCard
-							title={item.name}
-							image={item.image}
-							isMyPokemon={isMyPokemon}
-						/>
+						<PokemonCard title={item.name} image={item.image} />
 					</Grid>
 				))}
 			</Grid>
@@ -80,10 +72,10 @@ const Pokemons = ({ isMyPokemon }: Props): JSX.Element => {
 				rowGap={2}
 				m={{ xs: 2, sm: 4, md: 8 }}
 			>
-				<ButtonComponent
+				{/* <ButtonComponent
 					text={"Load More Pokèmons"}
 					onClick={onClickLoadMore}
-				/>
+				/> */}
 
 				<Pagination
 					count={Math.ceil(data.pokemons.count / LIMIT)}

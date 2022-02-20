@@ -4,17 +4,15 @@ import Container from "components/Container";
 import { Pokemons } from "./components";
 import { Heading } from "blocks";
 
-interface Props {
-	isMyPokemon: boolean;
-}
-
-const PokemonList = ({ isMyPokemon }: Props): JSX.Element => (
-	<Main colorInvert={true}>
-		<Heading isMyPokemon={isMyPokemon} />
-		<Container>
-			<Pokemons isMyPokemon={isMyPokemon} />
-		</Container>
-	</Main>
-);
+const PokemonList = (): JSX.Element => {
+	return (
+		<Main colorInvert={true}>
+			<Heading />
+			<Container>
+				<Pokemons />
+			</Container>
+		</Main>
+	);
+};
 
 export default PokemonList;

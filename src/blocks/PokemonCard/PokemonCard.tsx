@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useRouter } from "next/router";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useTheme } from "@mui/material/styles";
@@ -9,16 +9,17 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Image from "next/image";
 import { ButtonComponent } from "blocks";
+import { AppContext } from "context/context";
 
 interface Props {
 	image: string;
 	title: string;
-	isMyPokemon: boolean;
 }
 
-const PokemonCard = ({ image, title, isMyPokemon }: Props): JSX.Element => {
+const PokemonCard = ({ image, title }: Props): JSX.Element => {
 	const theme = useTheme();
 	const router = useRouter();
+	const { state } = useContext(AppContext);
 
 	const onClickButton = () => {
 		router.push(`/${title.toLowerCase()}`);
@@ -44,9 +45,9 @@ const PokemonCard = ({ image, title, isMyPokemon }: Props): JSX.Element => {
 			<Box
 				component={CardContent}
 				display={"flex"}
-				justifyContent={isMyPokemon ? "space-between" : "flex-end"}
+				justifyContent={state.user.isMyPokemon ? "space-between" : "flex-end"}
 			>
-				{isMyPokemon && (
+				{state.user.isMyPokemon && (
 					<Box component={"div"}>
 						<Chip
 							color={"primary"}
@@ -60,13 +61,14 @@ const PokemonCard = ({ image, title, isMyPokemon }: Props): JSX.Element => {
 						/>
 					</Box>
 				)}
-
-				<Box display={"flex"} columnGap={2}>
-					<Typography variant={"h6"} fontWeight={700} align={"center"}>
-						4
-					</Typography>
-					<Image src="/pokeball.svg" height={30} width={30} />
-				</Box>
+				{!state.user.isMyPokemon && (
+					<Box display={"flex"} columnGap={2}>
+						<Typography variant={"h6"} fontWeight={700} align={"center"}>
+							4
+						</Typography>
+						<Image src="/pokeball.svg" height={30} width={30} />
+					</Box>
+				)}
 			</Box>
 			<Box
 				component={LazyLoadImage}
@@ -89,7 +91,7 @@ const PokemonCard = ({ image, title, isMyPokemon }: Props): JSX.Element => {
 					{title}
 				</Typography>
 				<ButtonComponent
-					text={isMyPokemon ? "Release" : "See Details"}
+					text={state.user.isMyPokemon ? "Release" : "See Details"}
 					onClick={onClickButton}
 				/>
 			</Box>

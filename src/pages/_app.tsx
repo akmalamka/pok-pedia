@@ -1,13 +1,14 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import Head from "next/head";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import Page from "../components/Page";
+import { AppProvider } from "context/context";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "react-image-lightbox/style.css";
 import "aos/dist/aos.css";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 const client = new ApolloClient({
 	uri: "https://graphql-pokeapi.graphcdn.app/",
@@ -26,11 +27,13 @@ export default function App({ Component, pageProps }): JSX.Element {
 				/>
 				<title>Pokepedia</title>
 			</Head>
-			<ApolloProvider client={client}>
-				<Page>
-					<Component {...pageProps} />
-				</Page>
-			</ApolloProvider>
+			<AppProvider>
+				<ApolloProvider client={client}>
+					<Page>
+						<Component {...pageProps} />
+					</Page>
+				</ApolloProvider>
+			</AppProvider>
 		</React.Fragment>
 	);
 }

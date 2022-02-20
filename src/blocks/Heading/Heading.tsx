@@ -1,19 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { alpha, useTheme } from "@mui/material/styles";
-
 import Container from "components/Container";
-interface Props {
-	isMyPokemon: boolean;
-}
+import { AppContext } from "context/context";
 
-const Heading = ({ isMyPokemon }: Props): JSX.Element => {
+const Heading = (): JSX.Element => {
+	const { state } = useContext(AppContext);
 	const theme = useTheme();
-	const isMd = useMediaQuery(theme.breakpoints.up("md"), {
-		defaultMatches: true,
-	});
 
 	return (
 		<Box
@@ -37,7 +31,7 @@ const Heading = ({ isMyPokemon }: Props): JSX.Element => {
 								fontWeight: 700,
 							}}
 						>
-							{isMyPokemon ? "My Pokèmon" : "Pokèmon List"}
+							{state.user.isMyPokemon ? "My Pokèmon" : "Pokèmon List"}
 						</Typography>
 						<Typography
 							variant="h6"
@@ -45,7 +39,7 @@ const Heading = ({ isMyPokemon }: Props): JSX.Element => {
 							color="text.secondary"
 							sx={{ fontWeight: 400 }}
 						>
-							{isMyPokemon
+							{state.user.isMyPokemon
 								? "All of your catched pokemon listed here"
 								: "Lookout for these adorable pokèmon!"}
 						</Typography>
