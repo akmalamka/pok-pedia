@@ -13,9 +13,10 @@ import { ButtonComponent } from "blocks";
 interface Props {
 	image: string;
 	title: string;
+	isMyPokemon: boolean;
 }
 
-const PokemonCard = ({ image, title }: Props): JSX.Element => {
+const PokemonCard = ({ image, title, isMyPokemon }: Props): JSX.Element => {
 	const theme = useTheme();
 	const router = useRouter();
 
@@ -43,20 +44,23 @@ const PokemonCard = ({ image, title }: Props): JSX.Element => {
 			<Box
 				component={CardContent}
 				display={"flex"}
-				justifyContent={"space-between"}
+				justifyContent={isMyPokemon ? "space-between" : "flex-end"}
 			>
-				<Box component={"div"}>
-					<Chip
-						color={"primary"}
-						variant={"outlined"}
-						label={
-							<Typography variant={"button"} color={"text.primary"}>
-								Nike
-							</Typography>
-						}
-						sx={{ p: 1 }}
-					/>
-				</Box>
+				{isMyPokemon && (
+					<Box component={"div"}>
+						<Chip
+							color={"primary"}
+							variant={"outlined"}
+							label={
+								<Typography variant={"button"} color={"text.primary"}>
+									Nike
+								</Typography>
+							}
+							sx={{ p: 1 }}
+						/>
+					</Box>
+				)}
+
 				<Box display={"flex"} columnGap={2}>
 					<Typography variant={"h6"} fontWeight={700} align={"center"}>
 						4
@@ -84,7 +88,10 @@ const PokemonCard = ({ image, title }: Props): JSX.Element => {
 				<Typography variant={"h4"} fontWeight={700} gutterBottom>
 					{title}
 				</Typography>
-				<ButtonComponent text={"Release"} onClick={onClickButton} />
+				<ButtonComponent
+					text={isMyPokemon ? "Release" : "See Details"}
+					onClick={onClickButton}
+				/>
 			</Box>
 		</Box>
 	);

@@ -12,7 +12,7 @@ const PokemonList = ({ isMyPokemon }: Props): JSX.Element => (
 	<Main colorInvert={true}>
 		<Heading isMyPokemon={isMyPokemon} />
 		<Container>
-			<Pokemons />
+			<Pokemons isMyPokemon={isMyPokemon} />
 		</Container>
 	</Main>
 );

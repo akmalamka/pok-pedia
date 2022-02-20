@@ -6,6 +6,10 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { ButtonComponent, PokemonCard } from "blocks";
 
+interface Props {
+	isMyPokemon: boolean;
+}
+
 const GET_POKEMONS = gql`
 	query pokemons($limit: Int, $offset: Int) {
 		pokemons(limit: $limit, offset: $offset) {
@@ -27,20 +31,23 @@ const gqlVariables = {
 	offset: 1,
 };
 
-const Pokemons = (): JSX.Element => {
+const Pokemons = ({ isMyPokemon }: Props): JSX.Element => {
 	const theme = useTheme();
 	const { loading, error, data } = useQuery(GET_POKEMONS, {
 		variables: gqlVariables,
 	});
 	if (loading) return <Typography>Loading...</Typography>;
 	if (error) return <Typography>`Error! ${error.message}`</Typography>;
-	// console.log("data = ", data);
 	return (
 		<Box>
 			<Grid container spacing={2}>
 				{data.pokemons.results.map((item, i) => (
 					<Grid key={i} item xs={12} sm={4} md={3}>
-						<PokemonCard title={item.name} image={item.image} />
+						<PokemonCard
+							title={item.name}
+							image={item.image}
+							isMyPokemon={isMyPokemon}
+						/>
 					</Grid>
 				))}
 			</Grid>
