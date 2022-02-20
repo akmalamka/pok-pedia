@@ -3,8 +3,8 @@ import { gql, useQuery } from "@apollo/client";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Pagination from "@mui/material/Pagination";
 import Grid from "@mui/material/Grid";
+import Pagination from "@mui/material/Pagination";
 import { ButtonComponent, PokemonCard } from "blocks";
 
 interface Props {
@@ -34,10 +34,11 @@ const Pokemons = ({ isMyPokemon }: Props): JSX.Element => {
 	const handleChange = (event, value) => {
 		setPage(value);
 	};
+	const LIMIT = 20;
 
 	const gqlVariables = {
-		limit: 20,
-		offset: 1 + 20 * (page - 1),
+		limit: LIMIT,
+		offset: 1 + LIMIT * (page - 1),
 	};
 	const { loading, error, data } = useQuery(GET_POKEMONS, {
 		variables: gqlVariables,
@@ -56,7 +57,7 @@ const Pokemons = ({ isMyPokemon }: Props): JSX.Element => {
 	// 		setPokemonData(data.pokemons.results);
 	// 	}
 	// }, [loading]);
-	// console.log("pokemondata = ", pokemonData);
+	console.log(data);
 
 	return (
 		<Box>
@@ -85,7 +86,7 @@ const Pokemons = ({ isMyPokemon }: Props): JSX.Element => {
 				/>
 
 				<Pagination
-					count={10}
+					count={Math.ceil(data.pokemons.count / LIMIT)}
 					page={page}
 					color="primary"
 					onChange={handleChange}
