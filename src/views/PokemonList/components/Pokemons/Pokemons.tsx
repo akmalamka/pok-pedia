@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Pagination from "@mui/material/Pagination";
 import Grid from "@mui/material/Grid";
 import { ButtonComponent, PokemonCard } from "blocks";
 
@@ -26,18 +27,37 @@ const GET_POKEMONS = gql`
 	}
 `;
 
-const gqlVariables = {
-	limit: 10,
-	offset: 1,
-};
-
 const Pokemons = ({ isMyPokemon }: Props): JSX.Element => {
 	const theme = useTheme();
+	const [page, setPage] = useState(1);
+
+	const handleChange = (event, value) => {
+		setPage(value);
+	};
+
+	const gqlVariables = {
+		limit: 20,
+		offset: 1 + 20 * (page - 1),
+	};
 	const { loading, error, data } = useQuery(GET_POKEMONS, {
 		variables: gqlVariables,
 	});
+	const [pokemonData, setPokemonData] = useState([]);
+
 	if (loading) return <Typography>Loading...</Typography>;
 	if (error) return <Typography>`Error! ${error.message}`</Typography>;
+
+	const onClickLoadMore = () => {
+		setPage(page + 1);
+		// setPokemonData(pokemonData.concat(data.pokemons.results));
+	};
+	// useEffect(() => {
+	// 	if (!loading) {
+	// 		setPokemonData(data.pokemons.results);
+	// 	}
+	// }, [loading]);
+	// console.log("pokemondata = ", pokemonData);
+
 	return (
 		<Box>
 			<Grid container spacing={2}>
@@ -51,8 +71,25 @@ const Pokemons = ({ isMyPokemon }: Props): JSX.Element => {
 					</Grid>
 				))}
 			</Grid>
-			<Box display={"flex"} justifyContent={"center"} m={{ xs: 2, md: 4 }}>
-				<ButtonComponent text={"Load More Pokèmons"} />
+			<Box
+				display={"flex"}
+				flexDirection={"column"}
+				justifyContent={"center"}
+				alignItems={"center"}
+				rowGap={2}
+				m={{ xs: 2, sm: 4, md: 8 }}
+			>
+				<ButtonComponent
+					text={"Load More Pokèmons"}
+					onClick={onClickLoadMore}
+				/>
+
+				<Pagination
+					count={10}
+					page={page}
+					color="primary"
+					onChange={handleChange}
+				/>
 			</Box>
 		</Box>
 	);
