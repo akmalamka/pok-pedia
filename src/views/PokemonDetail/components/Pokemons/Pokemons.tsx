@@ -50,27 +50,7 @@ const GET_POKEMON = gql`
 	}
 `;
 
-const mock = [
-	{
-		image:
-			"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png",
-		title: "Goby",
-		color: "#04AB0F",
-		types: ["Normal", "Ground"],
-		moves: ["Cut", "Bind", "Double Edge", "Return"],
-		abilities: ["Sniper", "Bind", "Suction Cups", "Return"],
-		statistics: [
-			{ name: "HP", value: 150 },
-			{ name: "Attack", value: 50 },
-			{ name: "Defense", value: 75 },
-			{ name: "Special Attack", value: 150 },
-			{ name: "Special Defense", value: 175 },
-			{ name: "Speed", value: 200 },
-		],
-	},
-];
-
-const Folio = (): JSX.Element => {
+const Pokemons = (): JSX.Element => {
 	const theme = useTheme();
 	const MIN = 0;
 	const MAX = 255;
@@ -304,4 +284,4 @@ const Folio = (): JSX.Element => {
 	);
 };
 
-export default Folio;
+export default Pokemons;

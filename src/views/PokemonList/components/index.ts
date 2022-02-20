@@ -1,1 +1,1 @@
-export { default as Folio } from "./Folio";
+export { default as Pokemons } from "./Pokemons";

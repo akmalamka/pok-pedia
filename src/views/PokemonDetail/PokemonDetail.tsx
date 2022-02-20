@@ -1,12 +1,12 @@
 import React from "react";
 import Main from "layouts/Main";
 import Container from "components/Container";
-import { Folio } from "./components";
+import { Pokemons } from "./components";
 
 const PokemonList = (): JSX.Element => (
 	<Main colorInvert={true}>
 		<Container>
-			<Folio />
+			<Pokemons />
 		</Container>
 	</Main>
 );

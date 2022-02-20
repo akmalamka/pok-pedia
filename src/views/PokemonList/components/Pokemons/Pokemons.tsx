@@ -26,34 +26,8 @@ const gqlVariables = {
 	limit: 10,
 	offset: 1,
 };
-const mock = [
-	{
-		image:
-			"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png",
-		title: "Goby",
-		color: "#04AB0F",
-	},
-	{
-		image:
-			"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png",
-		title: "Nike",
-		color: "#04AB0F",
-	},
-	{
-		image:
-			"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png",
-		title: "Curology",
-		color: "#04AB0F",
-	},
-	{
-		image:
-			"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png",
-		title: "Trek",
-		color: "#04AB0F",
-	},
-];
 
-const Folio = (): JSX.Element => {
+const Pokemons = (): JSX.Element => {
 	const theme = useTheme();
 	const { loading, error, data } = useQuery(GET_POKEMONS, {
 		variables: gqlVariables,
@@ -77,4 +51,4 @@ const Folio = (): JSX.Element => {
 	);
 };
 
-export default Folio;
+export default Pokemons;
