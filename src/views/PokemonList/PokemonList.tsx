@@ -1,13 +1,16 @@
 import React from "react";
-import Box from "@mui/material/Box";
-
 import Main from "layouts/Main";
 import Container from "components/Container";
-import { Folio, Hero } from "./components";
+import { Folio } from "./components";
+import { Heading } from "blocks";
 
-const PokemonList = (): JSX.Element => (
+interface Props {
+	isMyPokemon: boolean;
+}
+
+const PokemonList = ({ isMyPokemon }: Props): JSX.Element => (
 	<Main colorInvert={true}>
-		<Hero />
+		<Heading isMyPokemon={isMyPokemon} />
 		<Container>
 			<Folio />
 		</Container>

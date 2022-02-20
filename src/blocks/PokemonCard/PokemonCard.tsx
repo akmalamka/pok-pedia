@@ -1,5 +1,4 @@
 import React from "react";
-import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useTheme } from "@mui/material/styles";
@@ -16,34 +15,14 @@ interface Props {
 	title: string;
 }
 
-// const GET_POKEMON = gql`
-// 	query pokemon($name: String!) {
-// 		pokemon(name: $name) {
-// 			id
-// 			name
-// 			message
-// 			status
-// 		}
-// 	}
-// `;
-
 const PokemonCard = ({ image, title }: Props): JSX.Element => {
 	const theme = useTheme();
 	const router = useRouter();
-	// const gqlVariables = {
-	// 	name: "ditto",
-	// };
-	// const { loading, error, data } = useQuery(GET_POKEMON, {
-	// 	variables: gqlVariables,
-	// });
 
 	const onClickButton = () => {
 		router.push(`/${title.toLowerCase()}`);
 	};
 
-	// if (loading) return <Typography>Loading...</Typography>;
-	// if (error) return <Typography>`Error! ${error.message}`</Typography>;
-	// console.log("data = ", data);
 	return (
 		<Box
 			component={Card}

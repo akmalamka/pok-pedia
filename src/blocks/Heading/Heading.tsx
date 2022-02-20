@@ -5,8 +5,11 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { alpha, useTheme } from "@mui/material/styles";
 
 import Container from "components/Container";
+interface Props {
+	isMyPokemon: boolean;
+}
 
-const Hero = (): JSX.Element => {
+const Heading = ({ isMyPokemon }: Props): JSX.Element => {
 	const theme = useTheme();
 	const isMd = useMediaQuery(theme.breakpoints.up("md"), {
 		defaultMatches: true,
@@ -34,7 +37,7 @@ const Hero = (): JSX.Element => {
 								fontWeight: 700,
 							}}
 						>
-							Pokèmon List
+							{isMyPokemon ? "My Pokèmon" : "Pokèmon List"}
 						</Typography>
 						<Typography
 							variant="h6"
@@ -42,7 +45,9 @@ const Hero = (): JSX.Element => {
 							color="text.secondary"
 							sx={{ fontWeight: 400 }}
 						>
-							Lookout for these astonishing pokèmon!
+							{isMyPokemon
+								? "All of your catched pokemon listed here"
+								: "Lookout for these adorable pokèmon!"}
 						</Typography>
 					</Box>
 				</Container>
@@ -68,4 +73,4 @@ const Hero = (): JSX.Element => {
 	);
 };
 
-export default Hero;
+export default Heading;
