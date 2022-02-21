@@ -87,11 +87,12 @@ const Pokemons = (): JSX.Element => {
 					icon: "success",
 					inputPlaceholder: "Enter your pokemon nickname",
 					confirmButtonText: "Add to My Pokemon",
+					allowOutsideClick: false,
 					inputValidator: (value) => {
 						const isNicknameExist =
 							typeof state.pokemons.find(
 								(pokemon) => pokemon.nickname === value
-							) !== undefined;
+							) !== "undefined";
 						if (value && !isNicknameExist) {
 							dispatch({
 								type: ActionTypes.ADD_POKEMON,

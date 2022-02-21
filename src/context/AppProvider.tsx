@@ -23,11 +23,6 @@ const initialState: InitialStateType = JSON.parse(
 			pokemons: [],
 	  };
 
-// const initialState = {
-// 	user: { isMyPokemon: null },
-// 	pokemons: [],
-// };
-
 const AppContext = createContext<{
 	state: InitialStateType;
 	dispatch: Dispatch<UserActions | PokemonActions>;
