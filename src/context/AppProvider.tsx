@@ -1,7 +1,7 @@
 import React, { createContext, useReducer, Dispatch, useEffect } from "react";
 import ContextDevTool from "react-context-devtool"; // remove dari library
 import { pokemonReducer } from "./reducers/pokemonReducer";
-import { userReducer } from "./reducers/UserReducer";
+import { userReducer } from "./reducers/userReducer";
 import { InitialStateType, PokemonActions, UserActions } from "./types";
 
 const APP_STATE_NAME = "state";
