@@ -2,13 +2,31 @@ import React, { createContext, useReducer, Dispatch, useEffect } from "react";
 import ContextDevTool from "react-context-devtool"; // remove dari library
 import { pokemonReducer } from "./reducers/pokemonReducer";
 import { userReducer } from "./reducers/UserReducer";
-
 import { InitialStateType, PokemonActions, UserActions } from "./types";
 
-const initialState = {
-	user: { isMyPokemon: null },
-	pokemons: [],
+const APP_STATE_NAME = "state";
+const getFromStorage = (key) => {
+	if (typeof window !== "undefined") {
+		window.localStorage.getItem(key);
+	}
 };
+
+const initialState: InitialStateType = JSON.parse(
+	typeof window !== "undefined" && window.localStorage.getItem(APP_STATE_NAME)!
+)
+	? JSON.parse(
+			typeof window !== "undefined" &&
+				window.localStorage.getItem(APP_STATE_NAME)!
+	  )
+	: {
+			user: { isMyPokemon: null },
+			pokemons: [],
+	  };
+
+// const initialState = {
+// 	user: { isMyPokemon: null },
+// 	pokemons: [],
+// };
 
 const AppContext = createContext<{
 	state: InitialStateType;
@@ -26,6 +44,10 @@ const mainReducer = ({ user, pokemons }: InitialStateType, action: any) => ({
 const AppProvider: React.FC = ({ children }) => {
 	const [state, dispatch] = useReducer(mainReducer, initialState);
 
+	useEffect(() => {
+		//Update the localstorage after detected change
+		window.localStorage.setItem(APP_STATE_NAME, JSON.stringify(state));
+	}, [state]);
 	return (
 		<AppContext.Provider value={{ state, dispatch }}>
 			{children}

@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { alpha, useTheme } from "@mui/material/styles";
 import Container from "components/Container";
-import { AppContext } from "context/context";
+import { AppContext } from "context/AppProvider";
 
 const Heading = (): JSX.Element => {
 	const { state } = useContext(AppContext);

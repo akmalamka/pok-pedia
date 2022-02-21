@@ -9,7 +9,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Image from "next/image";
 import { ButtonComponent } from "blocks";
-import { AppContext } from "context/context";
+import { AppContext } from "context/AppProvider";
 
 interface Props {
 	image: string;
@@ -30,6 +30,7 @@ const PokemonCard = ({ image, name, nickname }: Props): JSX.Element => {
 	const theme = useTheme();
 	const router = useRouter();
 	const { state } = useContext(AppContext);
+	console.log("nickname = ", nickname);
 
 	const onClickButton = () => {
 		router.push(`/${name.toLowerCase()}`);

@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Pagination from "@mui/material/Pagination";
 import { ButtonComponent, PokemonCard } from "blocks";
-import { AppContext } from "context/context";
+import { AppContext } from "context/AppProvider";
 import Container from "components/Container";
 
 const GET_POKEMONS = gql`
@@ -76,7 +76,11 @@ const Pokemons = (): JSX.Element => {
 				{(state.user.isMyPokemon ? state.pokemons : data.pokemons.results).map(
 					(item, i) => (
 						<Grid key={i} item xs={12} sm={4} md={3}>
-							<PokemonCard name={item.name} image={item.image} />
+							<PokemonCard
+								name={item.name}
+								image={item.image}
+								nickname={state.user.isMyPokemon && item.nickname}
+							/>
 						</Grid>
 					)
 				)}
