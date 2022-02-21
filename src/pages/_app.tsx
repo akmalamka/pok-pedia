@@ -3,7 +3,7 @@ import React from "react";
 import Head from "next/head";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import Page from "../components/Page";
-import { AppProvider } from "context/context";
+import AppProvider from "context/AppProvider";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

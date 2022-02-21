@@ -14,8 +14,8 @@ import Chip from "@mui/material/Chip";
 import LinearProgress from "@mui/material/LinearProgress";
 import { ButtonComponent } from "blocks";
 import { titleCase } from "blocks/PokemonCard/PokemonCard";
-import { AppContext } from "context/context";
-import { Types } from "context/reducers";
+import { AppContext } from "context/AppProvider";
+import { ActionTypes } from "context/ActionTypes";
 
 const GET_POKEMON = gql`
 	query pokemon($name: String!) {
@@ -91,7 +91,7 @@ const Pokemons = (): JSX.Element => {
 					inputValidator: (value) => {
 						if (value) {
 							dispatch({
-								type: Types.Add,
+								type: ActionTypes.ADD_POKEMON,
 								payload: {
 									name: name,
 									nickname: value,
@@ -106,9 +106,8 @@ const Pokemons = (): JSX.Element => {
 					Swal.fire({
 						title: `${value.value} added to your pokemon`,
 						icon: "success",
-						confirmButtonText: "See to My Pokemon",
+						confirmButtonText: "See My Pokemon",
 					}).then(function() {
-						// Redirect the user
 						window.location.href = "/my-pokemon";
 						console.log("The Ok Button was clicked.");
 					});

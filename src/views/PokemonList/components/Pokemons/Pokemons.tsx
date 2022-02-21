@@ -7,6 +7,7 @@ import Grid from "@mui/material/Grid";
 import Pagination from "@mui/material/Pagination";
 import { ButtonComponent, PokemonCard } from "blocks";
 import { AppContext } from "context/context";
+import Container from "components/Container";
 
 const GET_POKEMONS = gql`
 	query pokemons($limit: Int, $offset: Int) {
@@ -27,7 +28,6 @@ const GET_POKEMONS = gql`
 const Pokemons = (): JSX.Element => {
 	const theme = useTheme();
 	const { state } = useContext(AppContext);
-	console.log(state.pokemons);
 	const [page, setPage] = useState(1);
 
 	const handleChange = (event, value) => {
@@ -60,12 +60,26 @@ const Pokemons = (): JSX.Element => {
 
 	return (
 		<Box>
+			{state.user.isMyPokemon && state.pokemons.length == 0 && (
+				<Container>
+					<Typography
+						variant="h5"
+						color="text.primary"
+						align={"center"}
+						gutterBottom
+					>
+						You don't have any pokemon yet. Try to catch it!
+					</Typography>
+				</Container>
+			)}
 			<Grid container spacing={2}>
-				{data.pokemons.results.map((item, i) => (
-					<Grid key={i} item xs={12} sm={4} md={3}>
-						<PokemonCard title={item.name} image={item.image} />
-					</Grid>
-				))}
+				{(state.user.isMyPokemon ? state.pokemons : data.pokemons.results).map(
+					(item, i) => (
+						<Grid key={i} item xs={12} sm={4} md={3}>
+							<PokemonCard name={item.name} image={item.image} />
+						</Grid>
+					)
+				)}
 			</Grid>
 			<Box
 				display={"flex"}

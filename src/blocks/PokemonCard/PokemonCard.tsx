@@ -13,7 +13,8 @@ import { AppContext } from "context/context";
 
 interface Props {
 	image: string;
-	title: string;
+	name: string;
+	nickname?: string;
 }
 
 export function titleCase(str) {
@@ -25,13 +26,13 @@ export function titleCase(str) {
 	return splitStr.join(" ");
 }
 
-const PokemonCard = ({ image, title }: Props): JSX.Element => {
+const PokemonCard = ({ image, name, nickname }: Props): JSX.Element => {
 	const theme = useTheme();
 	const router = useRouter();
 	const { state } = useContext(AppContext);
 
 	const onClickButton = () => {
-		router.push(`/${title.toLowerCase()}`);
+		router.push(`/${name.toLowerCase()}`);
 	};
 
 	return (
@@ -63,7 +64,7 @@ const PokemonCard = ({ image, title }: Props): JSX.Element => {
 							variant={"outlined"}
 							label={
 								<Typography variant={"button"} color={"text.primary"}>
-									Nike
+									{titleCase(name.replaceAll("-", " "))}
 								</Typography>
 							}
 							sx={{ p: 1 }}
@@ -101,7 +102,9 @@ const PokemonCard = ({ image, title }: Props): JSX.Element => {
 					gutterBottom
 					align={"center"}
 				>
-					{titleCase(title.replaceAll("-", " "))}
+					{titleCase(
+						(state.user.isMyPokemon ? nickname : name).replaceAll("-", " ")
+					)}
 				</Typography>
 				<Box display={"flex"} justifyContent={"center"}>
 					<ButtonComponent

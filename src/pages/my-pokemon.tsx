@@ -1,13 +1,13 @@
 import React, { useEffect, useContext } from "react";
-import { AppContext } from "context/context";
+import { AppContext } from "context/AppProvider";
 import { PokemonList } from "views";
-import { Types } from "context/reducers";
+import { ActionTypes } from "context/ActionTypes";
 
 const IndexPage = (): JSX.Element => {
 	const { state, dispatch } = useContext(AppContext);
 	useEffect(() => {
 		dispatch({
-			type: Types.Change,
+			type: ActionTypes.CHANGE_IS_MY_POKEMON,
 			payload: {
 				isMyPokemon: true,
 			},

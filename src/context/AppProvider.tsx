@@ -1,26 +1,10 @@
-import React, { createContext, useReducer, Dispatch } from "react";
+import React, { createContext, useReducer, Dispatch, useEffect } from "react";
 import ContextDevTool from "react-context-devtool"; // remove dari library
-import {
-	PokemonActions,
-	pokemonReducer,
-	UserActions,
-	userReducer,
-} from "./reducers";
+import { pokemonReducer } from "./reducers/pokemonReducer";
+import { userReducer } from "./reducers/UserReducer";
 
-export type UserType = {
-	isMyPokemon: boolean;
-};
+import { InitialStateType, PokemonActions, UserActions } from "./types";
 
-export type PokemonType = {
-	name: string;
-	nickname: string;
-	image: string;
-};
-
-export type InitialStateType = {
-	user: UserType;
-	pokemons: PokemonType[];
-};
 const initialState = {
 	user: { isMyPokemon: null },
 	pokemons: [],
@@ -33,7 +17,7 @@ const AppContext = createContext<{
 	state: initialState,
 	dispatch: () => null,
 });
-AppContext.displayName = "Context Display Name";
+AppContext.displayName = "Pokepedia Context"; // nanti remove
 const mainReducer = ({ user, pokemons }: InitialStateType, action: any) => ({
 	user: userReducer(user, action),
 	pokemons: pokemonReducer(pokemons, action),
@@ -48,5 +32,5 @@ const AppProvider: React.FC = ({ children }) => {
 		</AppContext.Provider>
 	);
 };
-
+export default AppProvider;
 export { AppProvider, AppContext };
