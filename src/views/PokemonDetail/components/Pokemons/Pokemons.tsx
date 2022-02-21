@@ -68,7 +68,7 @@ const Pokemons = (): JSX.Element => {
 		name: pokemon_name,
 	};
 	const [openGif, setOpenGif] = useState(false);
-	const { dispatch } = useContext(AppContext);
+	const { state, dispatch } = useContext(AppContext);
 
 	function randomWithProbability() {
 		var notRandomNumbers = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1];
@@ -81,7 +81,6 @@ const Pokemons = (): JSX.Element => {
 		setTimeout(() => {
 			const rand = randomWithProbability();
 			if (rand) {
-				console.log("Success");
 				Swal.fire({
 					title: "You catch it!",
 					input: "text",
@@ -89,7 +88,11 @@ const Pokemons = (): JSX.Element => {
 					inputPlaceholder: "Enter your pokemon nickname",
 					confirmButtonText: "Add to My Pokemon",
 					inputValidator: (value) => {
-						if (value) {
+						const isNicknameExist =
+							typeof state.pokemons.find(
+								(pokemon) => pokemon.nickname === value
+							) !== undefined;
+						if (value && !isNicknameExist) {
 							dispatch({
 								type: ActionTypes.ADD_POKEMON,
 								payload: {
@@ -99,6 +102,9 @@ const Pokemons = (): JSX.Element => {
 								},
 							});
 						} else {
+							if (isNicknameExist) {
+								return `Try another name, you already have ${value}!`;
+							}
 							return "You need to write something!";
 						}
 					},
@@ -109,11 +115,9 @@ const Pokemons = (): JSX.Element => {
 						confirmButtonText: "See My Pokemon",
 					}).then(function() {
 						window.location.href = "/my-pokemon";
-						console.log("The Ok Button was clicked.");
 					});
 				});
 			} else {
-				console.log("Failed");
 				Swal.fire("Failed!", "You are not lucky this time :(", "error");
 			}
 			setOpenGif(false);

@@ -56,7 +56,6 @@ const Pokemons = (): JSX.Element => {
 	// 		setPokemonData(data.pokemons.results);
 	// 	}
 	// }, [loading]);
-	// console.log(data);
 
 	return (
 		<Box>
