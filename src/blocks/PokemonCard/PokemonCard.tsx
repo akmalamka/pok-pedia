@@ -42,18 +42,19 @@ const PokemonCard = ({ image, name, nickname }: Props): JSX.Element => {
 				showCancelButton: true,
 				confirmButtonText: "Yes, release it!",
 				cancelButtonText: "No, cancel!",
-				reverseButtons: true,
-			}).then(function() {
-				dispatch({
-					type: ActionTypes.RELEASE_POKEMON,
-					payload: {
-						nickname: nickname,
-					},
-				});
-				Swal.fire({
-					title: `${nickname} has been deleted`,
-					icon: "success",
-				});
+			}).then(function(result) {
+				if (result.isConfirmed) {
+					dispatch({
+						type: ActionTypes.RELEASE_POKEMON,
+						payload: {
+							nickname: nickname,
+						},
+					});
+					Swal.fire({
+						title: `${nickname} has been deleted`,
+						icon: "success",
+					});
+				}
 			});
 		} else {
 			router.push(`/${name.toLowerCase()}`);
@@ -69,8 +70,8 @@ const PokemonCard = ({ image, name, nickname }: Props): JSX.Element => {
 				"& .lazy-load-image-loaded": {
 					"&:hover": {
 						"& img": {
-							transform: "scale(1.1)",
-							cursor: "pointer",
+							transform: state.user.isMyPokemon ? "none" : "scale(1.1)",
+							cursor: state.user.isMyPokemon ? "" : "pointer",
 						},
 					},
 					display: "flex !important",
@@ -113,7 +114,7 @@ const PokemonCard = ({ image, name, nickname }: Props): JSX.Element => {
 				alt="..."
 				effect="blur"
 				minHeight={{ xs: 50, sm: 125, md: 200 }}
-				onClick={onClickButton}
+				onClick={state.user.isMyPokemon ? undefined : onClickButton}
 				sx={{
 					transition: "transform .7s ease !important",
 					transform: "scale(1.0)",

@@ -54,7 +54,7 @@ const GET_POKEMON = gql`
 	}
 `;
 
-const Pokemons = (): JSX.Element => {
+const Details = (): JSX.Element => {
 	const theme = useTheme();
 	const MIN = 0;
 	const MAX = 255;
@@ -376,4 +376,4 @@ const Pokemons = (): JSX.Element => {
 	);
 };
 
-export default Pokemons;
+export default Details;

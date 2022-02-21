@@ -5,11 +5,6 @@ import { userReducer } from "./reducers/UserReducer";
 import { InitialStateType, PokemonActions, UserActions } from "./types";
 
 const APP_STATE_NAME = "state";
-const getFromStorage = (key) => {
-	if (typeof window !== "undefined") {
-		window.localStorage.getItem(key);
-	}
-};
 
 const initialState: InitialStateType = JSON.parse(
 	typeof window !== "undefined" && window.localStorage.getItem(APP_STATE_NAME)!

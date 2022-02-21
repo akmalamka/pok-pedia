@@ -57,6 +57,13 @@ const Pokemons = (): JSX.Element => {
 	// 	}
 	// }, [loading]);
 
+	const paginationLogic = () => {
+		return (
+			(state.user.isMyPokemon && state.pokemons.length > LIMIT) ||
+			!state.user.isMyPokemon
+		);
+	};
+
 	return (
 		<Box>
 			{state.user.isMyPokemon && state.pokemons.length == 0 && (
@@ -69,6 +76,12 @@ const Pokemons = (): JSX.Element => {
 					>
 						You don't have any pokemon yet. Try to catch it!
 					</Typography>
+					<Box display={"flex"} justifyContent={"center"}>
+						<ButtonComponent
+							text={`Catch ${state.pokemons.length > 0 ? "More" : ""} Pokemon`}
+							href={"/"}
+						/>
+					</Box>
 				</Container>
 			)}
 			<Grid container spacing={2}>
@@ -96,13 +109,14 @@ const Pokemons = (): JSX.Element => {
 					text={"Load More Pokèmons"}
 					onClick={onClickLoadMore}
 				/> */}
-
-				<Pagination
-					count={Math.ceil(data.pokemons.count / LIMIT)}
-					page={page}
-					color="primary"
-					onChange={handleChange}
-				/>
+				{paginationLogic() && (
+					<Pagination
+						count={Math.ceil(data.pokemons.count / LIMIT)}
+						page={page}
+						color="primary"
+						onChange={handleChange}
+					/>
+				)}
 			</Box>
 		</Box>
 	);
