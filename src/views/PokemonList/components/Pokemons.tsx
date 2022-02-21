@@ -30,7 +30,7 @@ const Pokemons = (): JSX.Element => {
 	const { state } = useContext(AppContext);
 	const [page, setPage] = useState(1);
 
-	const handleChange = (event, value) => {
+	const handleChangePagination = (event, value) => {
 		setPage(value);
 	};
 	const LIMIT = 20;
@@ -51,7 +51,15 @@ const Pokemons = (): JSX.Element => {
 		setPage(page + 1);
 		// setPokemonData(pokemonData.concat(data.pokemons.results));
 	};
-	// useEffect(() => {
+
+	const ownedArr = state.pokemons.map((item) => {
+		return item.name;
+	});
+	let counts = {};
+	for (const name of ownedArr) {
+		counts[name] = counts[name] ? counts[name] + 1 : 1;
+	}
+
 	// 	if (!loading) {
 	// 		setPokemonData(data.pokemons.results);
 	// 	}
@@ -92,6 +100,7 @@ const Pokemons = (): JSX.Element => {
 								name={item.name}
 								image={item.image}
 								nickname={state.user.isMyPokemon && item.nickname}
+								count={counts[item.name] ? counts[item.name] : 0}
 							/>
 						</Grid>
 					)
@@ -114,7 +123,7 @@ const Pokemons = (): JSX.Element => {
 						count={Math.ceil(data.pokemons.count / LIMIT)}
 						page={page}
 						color="primary"
-						onChange={handleChange}
+						onChange={handleChangePagination}
 					/>
 				)}
 			</Box>

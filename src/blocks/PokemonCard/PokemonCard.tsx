@@ -17,6 +17,7 @@ interface Props {
 	image: string;
 	name: string;
 	nickname?: string;
+	count?: number;
 }
 
 export function titleCase(str) {
@@ -28,7 +29,7 @@ export function titleCase(str) {
 	return splitStr.join(" ");
 }
 
-const PokemonCard = ({ image, name, nickname }: Props): JSX.Element => {
+const PokemonCard = ({ image, name, nickname, count }: Props): JSX.Element => {
 	const theme = useTheme();
 	const router = useRouter();
 	const { state, dispatch } = useContext(AppContext);
@@ -100,7 +101,7 @@ const PokemonCard = ({ image, name, nickname }: Props): JSX.Element => {
 				{!state.user.isMyPokemon && (
 					<Box display={"flex"} columnGap={2}>
 						<Typography variant={"h6"} fontWeight={700} align={"center"}>
-							4
+							{count}
 						</Typography>
 						<Image src="/pokeball.svg" height={30} width={30} />
 					</Box>
