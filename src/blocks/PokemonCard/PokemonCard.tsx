@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useTheme } from "@mui/material/styles";
@@ -10,6 +11,7 @@ import CardContent from "@mui/material/CardContent";
 import Image from "next/image";
 import { ButtonComponent } from "blocks";
 import { AppContext } from "context/AppProvider";
+import { ActionTypes } from "context/ActionTypes";
 
 interface Props {
 	image: string;
@@ -29,11 +31,33 @@ export function titleCase(str) {
 const PokemonCard = ({ image, name, nickname }: Props): JSX.Element => {
 	const theme = useTheme();
 	const router = useRouter();
-	const { state } = useContext(AppContext);
-	console.log("nickname = ", nickname);
+	const { state, dispatch } = useContext(AppContext);
 
 	const onClickButton = () => {
-		router.push(`/${name.toLowerCase()}`);
+		if (state.user.isMyPokemon) {
+			Swal.fire({
+				title: `Are you sure you wanna release ${nickname}?`,
+				text: "You will not be able to revert this!",
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonText: "Yes, release it!",
+				cancelButtonText: "No, cancel!",
+				reverseButtons: true,
+			}).then(function() {
+				dispatch({
+					type: ActionTypes.RELEASE_POKEMON,
+					payload: {
+						nickname: nickname,
+					},
+				});
+				Swal.fire({
+					title: `${nickname} has been deleted`,
+					icon: "success",
+				});
+			});
+		} else {
+			router.push(`/${name.toLowerCase()}`);
+		}
 	};
 
 	return (
