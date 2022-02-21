@@ -13,7 +13,6 @@ import "aos/dist/aos.css";
 const client = new ApolloClient({
 	uri: "https://graphql-pokeapi.graphcdn.app/",
 	cache: new InMemoryCache(),
-	// connectToDevTools: process.env.NODE_ENV === "development",
 });
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

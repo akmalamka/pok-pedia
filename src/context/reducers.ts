@@ -21,7 +21,7 @@ export enum Types {
 type PokemonPayload = {
 	[Types.Add]: PokemonType;
 	[Types.Release]: {
-		id: number;
+		nickname: string;
 	};
 };
 
@@ -38,19 +38,17 @@ export const pokemonReducer = (
 			return [
 				...state,
 				{
-					id: action.payload.id,
 					name: action.payload.name,
 					nickname: action.payload.nickname,
-					types: action.payload.types,
-					height: action.payload.height,
-					weight: action.payload.weight,
-					moves: action.payload.moves,
-					abilities: action.payload.abilities,
-					stats: action.payload.stats,
+					image: action.payload.image,
 				},
 			];
 		case "RELEASE_POKEMON":
-			return [...state.filter((pokemon) => pokemon.id !== action.payload.id)];
+			return [
+				...state.filter(
+					(pokemon) => pokemon.nickname !== action.payload.nickname
+				),
+			];
 		default:
 			return state;
 	}

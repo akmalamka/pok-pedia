@@ -16,6 +16,7 @@ export default class MyDocument extends Document {
 	render(): JSX.Element {
 		return (
 			<Html lang="en">
+				<script src="http://localhost:8097"></script>
 				<Head>
 					<meta charSet="utf-8" />
 					{/* <link

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import Swal from "sweetalert2";
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Box from "@mui/material/Box";
@@ -12,6 +13,9 @@ import CardContent from "@mui/material/CardContent";
 import Chip from "@mui/material/Chip";
 import LinearProgress from "@mui/material/LinearProgress";
 import { ButtonComponent } from "blocks";
+import { titleCase } from "blocks/PokemonCard/PokemonCard";
+import { AppContext } from "context/context";
+import { Types } from "context/reducers";
 
 const GET_POKEMON = gql`
 	query pokemon($name: String!) {
@@ -60,17 +64,69 @@ const Pokemons = (): JSX.Element => {
 	});
 	const router = useRouter();
 	const { pokemon_name } = router.query;
-	console.log("pokemon = ", pokemon_name);
 	const gqlVariables = {
 		name: pokemon_name,
 	};
+	const [openGif, setOpenGif] = useState(false);
+	const { dispatch } = useContext(AppContext);
+
+	function randomWithProbability() {
+		var notRandomNumbers = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1];
+		var idx = Math.floor(Math.random() * notRandomNumbers.length);
+		return notRandomNumbers[idx];
+	}
+
+	const onClickCatch = (name: string, image: string) => {
+		setOpenGif(true);
+		setTimeout(() => {
+			const rand = randomWithProbability();
+			if (rand) {
+				console.log("Success");
+				Swal.fire({
+					title: "You catch it!",
+					input: "text",
+					icon: "success",
+					inputPlaceholder: "Enter your pokemon nickname",
+					confirmButtonText: "Add to My Pokemon",
+					inputValidator: (value) => {
+						if (value) {
+							dispatch({
+								type: Types.Add,
+								payload: {
+									name: name,
+									nickname: value,
+									image: image,
+								},
+							});
+						} else {
+							return "You need to write something!";
+						}
+					},
+				}).then(function(value) {
+					Swal.fire({
+						title: `${value.value} added to your pokemon`,
+						icon: "success",
+						confirmButtonText: "See to My Pokemon",
+					}).then(function() {
+						// Redirect the user
+						window.location.href = "/my-pokemon";
+						console.log("The Ok Button was clicked.");
+					});
+				});
+			} else {
+				console.log("Failed");
+				Swal.fire("Failed!", "You are not lucky this time :(", "error");
+			}
+			setOpenGif(false);
+		}, 3000);
+	};
+
 	const { loading, error, data } = useQuery(GET_POKEMON, {
 		variables: gqlVariables,
 	});
 
 	if (loading) return <Typography>Loading...</Typography>;
 	if (error) return <Typography>`Error! ${error.message}`</Typography>;
-	console.log("data = ", data);
 	const {
 		name,
 		sprites,
@@ -81,7 +137,7 @@ const Pokemons = (): JSX.Element => {
 		abilities,
 		stats,
 	} = data.pokemon;
-	console.log("stats = ", stats);
+
 	return (
 		<Box>
 			<Box
@@ -107,7 +163,7 @@ const Pokemons = (): JSX.Element => {
 								align={"center"}
 								gutterBottom
 							>
-								{name}
+								{titleCase(name.replaceAll("-", " "))}
 							</Typography>
 						</Box>
 						<Box
@@ -133,7 +189,7 @@ const Pokemons = (): JSX.Element => {
 						>
 							{types.map((type, i, data) => (
 								<Typography variant={"h5"} align={"center"} gutterBottom>
-									{type.type.name}
+									{titleCase(type.type.name)}
 									{i < data.length - 1 && "+"}
 								</Typography>
 							))}
@@ -248,7 +304,8 @@ const Pokemons = (): JSX.Element => {
 									>
 										<Box width={"40%"}>
 											<Typography variant={"h6"} align={"left"}>
-												{statistic.stat.name} : {statistic.base_stat}
+												{titleCase(statistic.stat.name.replaceAll("-", " "))} :{" "}
+												{statistic.base_stat}
 											</Typography>
 										</Box>
 
@@ -275,8 +332,39 @@ const Pokemons = (): JSX.Element => {
 								position: isXs ? "fixed" : "relative",
 							}}
 						>
-							<ButtonComponent text={"Catch"} />
+							<ButtonComponent
+								text={"Catch"}
+								onClick={() => onClickCatch(name, sprites.front_default)}
+							/>
 						</Box>
+						{openGif && (
+							<Box
+								component={CardContent}
+								display={"flex"}
+								justifyContent={"center"}
+								alignItems={"center"}
+								width={1}
+								sx={{
+									bottom: 0,
+									top: 0,
+									right: 0,
+									left: 0,
+									position: "fixed",
+								}}
+							>
+								<Box
+									component={LazyLoadImage}
+									height={1}
+									width={1}
+									src={
+										"https://c.tenor.com/MMDa60lTwtIAAAAC/caught-pokemon.gif"
+									}
+									alt="..."
+									effect="blur"
+									maxHeight={{ xs: 150, sm: 250, md: 400 }}
+								/>
+							</Box>
+						)}
 					</Grid>
 				</Grid>
 			</Box>

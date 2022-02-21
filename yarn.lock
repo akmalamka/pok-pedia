@@ -4165,6 +4165,11 @@ raw-body@2.4.1:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
+react-context-devtool@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-context-devtool/-/react-context-devtool-2.0.3.tgz#60d6d8669bc64e32e42069638e961acc8320d77a"
+  integrity sha512-GVpDaQqRsVoofcbViVWelWTUHNjk4CAA81ZU+TVjEwZUTjhwOgKDM4t6yGfLBoEEG8PFYKbp9QqzyWw2BASe5Q==
+
 react-countup@^4.3.3:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/react-countup/-/react-countup-4.4.0.tgz#ca5c0a971c442a06a7bc52f3921ad2e66ba65990"
@@ -4959,6 +4964,11 @@ supports-color@^8.0.0:
   integrity sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q==
   dependencies:
     has-flag "^4.0.0"
+
+sweetalert2@^11.4.2:
+  version "11.4.2"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-11.4.2.tgz#6cafdfd72312b7d807381cc4a4b7223fec4113ce"
+  integrity sha512-Gj3X/pNYtCp3LIKxUbcdftyeuFEZR5JZn6+I1m152GQSAMsDq2eH9tL466/CDaMvYu2L+XdR0mWwaemXpQYkQw==
 
 symbol-observable@^4.0.0:
   version "4.0.0"

@@ -1,4 +1,5 @@
 import React, { createContext, useReducer, Dispatch } from "react";
+import ContextDevTool from "react-context-devtool"; // remove dari library
 import {
 	PokemonActions,
 	pokemonReducer,
@@ -10,21 +11,10 @@ export type UserType = {
 	isMyPokemon: boolean;
 };
 
-type statsType = {
-	name: string;
-	base_stat: number;
-};
-
 export type PokemonType = {
-	id: number;
 	name: string;
 	nickname: string;
-	types: string[];
-	height: number;
-	weight: number;
-	moves: string[];
-	abilities: string[];
-	stats: statsType[];
+	image: string;
 };
 
 export type InitialStateType = {
@@ -43,7 +33,7 @@ const AppContext = createContext<{
 	state: initialState,
 	dispatch: () => null,
 });
-
+AppContext.displayName = "Context Display Name";
 const mainReducer = ({ user, pokemons }: InitialStateType, action: any) => ({
 	user: userReducer(user, action),
 	pokemons: pokemonReducer(pokemons, action),

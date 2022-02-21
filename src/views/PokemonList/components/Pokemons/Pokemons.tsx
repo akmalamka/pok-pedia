@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Pagination from "@mui/material/Pagination";
 import { ButtonComponent, PokemonCard } from "blocks";
+import { AppContext } from "context/context";
 
 const GET_POKEMONS = gql`
 	query pokemons($limit: Int, $offset: Int) {
@@ -25,6 +26,8 @@ const GET_POKEMONS = gql`
 
 const Pokemons = (): JSX.Element => {
 	const theme = useTheme();
+	const { state } = useContext(AppContext);
+	console.log(state.pokemons);
 	const [page, setPage] = useState(1);
 
 	const handleChange = (event, value) => {
@@ -53,7 +56,7 @@ const Pokemons = (): JSX.Element => {
 	// 		setPokemonData(data.pokemons.results);
 	// 	}
 	// }, [loading]);
-	console.log(data);
+	// console.log(data);
 
 	return (
 		<Box>

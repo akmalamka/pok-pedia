@@ -17,9 +17,9 @@ const ButtonComponent = ({ text, ...rest }: Props): JSX.Element => {
 			sx={{
 				borderRadius: 30,
 				my: 1,
-				"&:hover": {
-					transform: `translateY(-${theme.spacing(1 / 3)})`,
-				},
+				// "&:hover": {
+				// 	transform: `translateY(-${theme.spacing(1 / 3)})`,
+				// },
 			}}
 			{...rest}
 		>
@@ -28,7 +28,7 @@ const ButtonComponent = ({ text, ...rest }: Props): JSX.Element => {
 				sx={{
 					textTransform: "uppercase",
 					letterSpacing: 1.2,
-					fontWeight: 400,
+					// fontWeight: 400,
 				}}
 			>
 				{text}

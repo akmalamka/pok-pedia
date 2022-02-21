@@ -16,6 +16,15 @@ interface Props {
 	title: string;
 }
 
+export function titleCase(str) {
+	var splitStr = str.toLowerCase().split(" ");
+	for (var i = 0; i < splitStr.length; i++) {
+		splitStr[i] =
+			splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+	}
+	return splitStr.join(" ");
+}
+
 const PokemonCard = ({ image, title }: Props): JSX.Element => {
 	const theme = useTheme();
 	const router = useRouter();
@@ -83,17 +92,23 @@ const PokemonCard = ({ image, title }: Props): JSX.Element => {
 					transition: "transform .7s ease !important",
 					transform: "scale(1.0)",
 					objectFit: "cover",
-					filter: theme.palette.mode === "dark" ? "brightness(0.7)" : "none",
 				}}
 			/>
 			<Box component={CardContent}>
-				<Typography variant={"h4"} fontWeight={700} gutterBottom>
-					{title}
+				<Typography
+					variant={"h4"}
+					fontWeight={700}
+					gutterBottom
+					align={"center"}
+				>
+					{titleCase(title.replaceAll("-", " "))}
 				</Typography>
-				<ButtonComponent
-					text={state.user.isMyPokemon ? "Release" : "See Details"}
-					onClick={onClickButton}
-				/>
+				<Box display={"flex"} justifyContent={"center"}>
+					<ButtonComponent
+						text={state.user.isMyPokemon ? "Release" : "See Details"}
+						onClick={onClickButton}
+					/>
+				</Box>
 			</Box>
 		</Box>
 	);
