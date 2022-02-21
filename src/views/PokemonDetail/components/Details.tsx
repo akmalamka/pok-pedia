@@ -155,7 +155,7 @@ const Details = (): JSX.Element => {
 				}}
 			>
 				<Grid container spacing={2}>
-					<Grid item xs={12} sm={3} md={4}>
+					<Grid item xs={12} md={4}>
 						<Box
 							component={CardContent}
 							display={"flex"}
@@ -174,7 +174,11 @@ const Details = (): JSX.Element => {
 							component={LazyLoadImage}
 							height={1}
 							width={1}
-							src={sprites.front_default}
+							src={
+								sprites.front_default
+									? sprites.front_default
+									: "/default-avatar.png"
+							}
 							alt="..."
 							effect="blur"
 							minHeight={{ xs: 50, sm: 125, md: 200 }}
@@ -227,7 +231,7 @@ const Details = (): JSX.Element => {
 							</Box>
 						</Box>
 					</Grid>
-					<Grid item xs={12} sm={9} md={8}>
+					<Grid item xs={12} md={8}>
 						<Box
 							component={CardContent}
 							display={"flex"}
