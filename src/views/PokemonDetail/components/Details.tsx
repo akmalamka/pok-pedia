@@ -247,6 +247,16 @@ const Details = (): JSX.Element => {
 								rowGap={1}
 								flexWrap={"wrap"}
 							>
+								{moves.length == 0 && (
+									<Typography
+										variant="subtitle1"
+										color="text.primary"
+										align={"center"}
+										gutterBottom
+									>
+										There aren't any moves yet :(
+									</Typography>
+								)}
 								{moves.map((move) => (
 									<Chip
 										color={"primary"}
@@ -276,6 +286,16 @@ const Details = (): JSX.Element => {
 								rowGap={1}
 								flexWrap={"wrap"}
 							>
+								{abilities.length == 0 && (
+									<Typography
+										variant="subtitle1"
+										color="text.primary"
+										align={"center"}
+										gutterBottom
+									>
+										There aren't any abilities yet :(
+									</Typography>
+								)}
 								{abilities.map((ability) => (
 									<Chip
 										color={"primary"}
@@ -304,6 +324,16 @@ const Details = (): JSX.Element => {
 								flexDirection={"column"}
 								rowGap={2}
 							>
+								{stats.length == 0 && (
+									<Typography
+										variant="subtitle1"
+										color="text.primary"
+										align={"center"}
+										gutterBottom
+									>
+										There aren't any stats yet :(
+									</Typography>
+								)}
 								{stats.map((statistic) => (
 									<Box
 										display={"flex"}
