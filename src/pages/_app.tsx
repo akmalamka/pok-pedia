@@ -5,9 +5,6 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import Page from '../components/Page';
 import AppProvider from 'context/AppProvider';
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import 'react-image-lightbox/style.css';
 import 'aos/dist/aos.css';
 
 const client = new ApolloClient({
